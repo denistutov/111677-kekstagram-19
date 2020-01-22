@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Денис Тутов](https://up.htmlacademy.ru/javascript/19/user/111677).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Уразаев](https://up.htmlacademy.ru/javascript/19/user/61574).
 
 ---
 
