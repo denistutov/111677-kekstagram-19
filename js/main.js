@@ -23,12 +23,12 @@ var namesArray = [
   'Елена'
 ];
 
-var getRandom = function (min, max) {
+var getRandomNumber = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
 };
 
-var getRandomValue = function (array) {
-  return array[Math.floor(getRandom(0, array.length))];
+var getRandomArrayValue = function (array) {
+  return array[Math.floor(getRandomNumber(0, array.length))];
 };
 
 var generateArrayRandomNumber = function (min, max) {
@@ -54,17 +54,17 @@ var createCommentsArray = function (count) {
   var comments = [];
 
   for (var i = 1; i < count; i++) {
-    var commentLength = getRandom(1, 2);
+    var commentLength = getRandomNumber(1, 2);
     var commentText = '';
 
     for (var j = 0; j < commentLength; j++) {
-      commentText = commentText + getRandomValue(messagesArray);
+      commentText = commentText + getRandomArrayValue(messagesArray);
     }
 
     comments[i] = {
-      avatar: 'img/avatar-' + getRandom(1, 6) + '.svg',
+      avatar: 'img/avatar-' + getRandomNumber(1, 6) + '.svg',
       message: commentText,
-      name: getRandomValue(namesArray)
+      name: getRandomArrayValue(namesArray)
     };
   }
 
@@ -79,8 +79,8 @@ var createPicturesArray = function (count) {
     pictures[i] = {
       url: 'photos/' + pictureUrl[i] + '.jpg',
       description: 'Тут должно быть описание', // Но не понятно откуда его брать
-      likes: getRandom(15, 200),
-      comments: createCommentsArray(getRandom(1, 10))
+      likes: getRandomNumber(15, 200),
+      comments: createCommentsArray(getRandomNumber(1, 10))
     };
   }
 
@@ -100,8 +100,14 @@ var renderPicture = function (picture) {
   return pictureElement;
 };
 
-var pictureFragment = document.createDocumentFragment();
-for (var i = 0; i < picturesArray.length; i++) {
-  pictureFragment.appendChild(renderPicture(picturesArray[i]));
-}
-picturesContainer.appendChild(pictureFragment);
+
+var insertPictures = function (array, container) {
+  var pictureFragment = document.createDocumentFragment();
+  for (var i = 0; i < array.length; i++) {
+    pictureFragment.appendChild(renderPicture(array[i]));
+  }
+
+  return container.appendChild(pictureFragment);
+};
+
+insertPictures(picturesArray, picturesContainer);
