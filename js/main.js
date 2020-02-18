@@ -53,7 +53,7 @@ var generateArrayRandomNumber = function (min, max) {
 var createCommentsArray = function (count) {
   var comments = [];
 
-  for (var i = 1; i < count; i++) {
+  for (var i = 0; i < count; i++) {
     var commentLength = getRandomNumber(1, 2);
     var commentText = '';
 
@@ -151,7 +151,7 @@ var renderSocialComment = function (comment) {
 var insertSocialComments = function (commentsArray) {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 1; i < commentsArray.length; i++) {
+  for (var i = 0; i < commentsArray.length; i++) {
     fragment.appendChild(renderSocialComment(commentsArray[i]));
   }
 
