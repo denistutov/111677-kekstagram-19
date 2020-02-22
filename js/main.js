@@ -166,4 +166,64 @@ var renderBigPicture = function (picture) {
   showBigPicture();
 };
 
-renderBigPicture(picturesArray[0]);
+// Личный проект: доверяй, но проверяй (часть 1)
+
+var ESC_KEY = 'Escape';
+
+var uploadPicture = document.querySelector('.img-upload');
+var inputPicture = uploadPicture.querySelector('#upload-file');
+var formPicture = uploadPicture.querySelector('.img-upload__overlay');
+var cancelUploadButton = uploadPicture.querySelector('#upload-cancel');
+
+var picturePreview = uploadPicture.querySelector('.img-upload__preview');
+var effectItem = uploadPicture.querySelectorAll('.effects__item');
+var effectLevelPin = uploadPicture.querySelector('.effect-level__pin');
+
+var setPIctureEffect = function (effect) {
+  if (effect === 'chrome') {
+    picturePreview.style.filter = 'grayscale(1)';
+  } else if (effect === 'sepia') {
+    picturePreview.style.filter = 'sepia(1)';
+  } else if (effect === 'marvin') {
+    picturePreview.style.filter = 'invert(100%)';
+  } else if (effect === 'phobos') {
+    picturePreview.style.filter = 'blur(3px)';
+  } else if (effect === 'heat') {
+    picturePreview.style.filter = 'brightness(3)';
+  } else {
+    picturePreview.style = null;
+  }
+};
+
+effectItem.forEach(function (picture) {
+  picture.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    setPIctureEffect(picture.firstElementChild.value);
+  });
+});
+
+var showFormPicture = function () {
+  formPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onFormPicturePressEsc);
+};
+
+var closeFormPicture = function () {
+  formPicture.classList.add('hidden');
+  inputPicture.value = '';
+};
+
+var onFormPicturePressEsc = function (evt) {
+  if (evt.key === ESC_KEY) {
+    closeFormPicture();
+  }
+};
+
+cancelUploadButton.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  closeFormPicture();
+});
+
+inputPicture.addEventListener('change', function () {
+  showFormPicture();
+});
