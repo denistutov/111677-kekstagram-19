@@ -177,27 +177,36 @@ var cancelUploadButton = uploadPicture.querySelector('#upload-cancel');
 
 var picturePreview = uploadPicture.querySelector('.img-upload__preview');
 var effectItem = uploadPicture.querySelectorAll('.effects__item');
+var effectLevelBar = uploadPicture.querySelector('.img-upload__effect-level');
 var effrctLevelValue = uploadPicture.querySelector('.effect-level__value');
 var effectLevelPin = uploadPicture.querySelector('.effect-level__pin');
 
 var currentEffectName = '';
-var maxEffectValueArray = {
-  chrome: 1,
-  sepia: 1,
-  marvin: 100,
-  phobos: 3,
-  heat: 3
-};
-var minEffectValueArray = {
-  chrome: 0,
-  sepia: 0,
-  marvin: 0,
-  phobos: 0,
-  heat: 1
+var effectValuesArray = {
+  'chrome': {
+    min: 0,
+    max: 1
+  },
+  'sepia': {
+    min: 0,
+    max: 1
+  },
+  'marvin': {
+    min: 0,
+    max: 100
+  },
+  'phobos': {
+    min: 0,
+    max: 3
+  },
+  'heat': {
+    min: 1,
+    max: 3
+  }
 };
 
-var getValueFromPercent = function (maxValue, percent) {
-  return (percent * maxValue) / 100;
+var getValueFromPercent = function (maxValue, minValue, percent) {
+  return percent * ((maxValue - minValue) / 100) + minValue;
 };
 
 var setPictureEffect = function (effect, value) {
@@ -212,7 +221,7 @@ var setPictureEffect = function (effect, value) {
   } else if (effect === 'heat') {
     picturePreview.style.filter = 'brightness(' + value + ')';
   } else {
-    picturePreview.style = null;
+    picturePreview.style = '';
   }
 };
 
@@ -220,19 +229,32 @@ effectItem.forEach(function (picture) {
   picture.addEventListener('click', function (evt) {
     evt.preventDefault();
     var effectName = picture.firstElementChild.value;
-    setPictureEffect(effectName, maxEffectValueArray[effectName]);
     currentEffectName = effectName;
+
+    if (effectName !== 'none') {
+      setPictureEffect(effectName, effectValuesArray[effectName].max);
+      if (effectLevelBar.classList.contains('hidden')) {
+        effectLevelBar.classList.remove('hidden');
+      }
+    } else {
+      setPictureEffect(effectName);
+      effectLevelBar.classList.add('hidden');
+    }
   });
 });
 
 effectLevelPin.addEventListener('mouseup', function (evt) {
   evt.preventDefault();
-  var newEffectValue = getValueFromPercent(maxEffectValueArray[currentEffectName], effrctLevelValue.value);
+  var newMaxEffectValue = effectValuesArray[currentEffectName].max;
+  var newMinEffectValue = effectValuesArray[currentEffectName].min;
+  var currentPercent = effrctLevelValue.value;
+  var newEffectValue = getValueFromPercent(newMaxEffectValue, newMinEffectValue, currentPercent);
   setPictureEffect(currentEffectName, newEffectValue);
 });
 
 var showFormPicture = function () {
   formPicture.classList.remove('hidden');
+  effectLevelBar.classList.add('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onFormPicturePressEsc);
 };
