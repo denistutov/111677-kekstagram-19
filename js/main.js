@@ -177,19 +177,40 @@ var cancelUploadButton = uploadPicture.querySelector('#upload-cancel');
 
 var picturePreview = uploadPicture.querySelector('.img-upload__preview');
 var effectItem = uploadPicture.querySelectorAll('.effects__item');
+var effrctLevelValue = uploadPicture.querySelector('.effect-level__value');
 var effectLevelPin = uploadPicture.querySelector('.effect-level__pin');
 
-var setPIctureEffect = function (effect) {
+var currentEffectName = '';
+var maxEffectValueArray = {
+  chrome: 1,
+  sepia: 1,
+  marvin: 100,
+  phobos: 3,
+  heat: 3
+};
+var minEffectValueArray = {
+  chrome: 0,
+  sepia: 0,
+  marvin: 0,
+  phobos: 0,
+  heat: 1
+};
+
+var getValueFromPercent = function (maxValue, percent) {
+  return (percent * maxValue) / 100;
+};
+
+var setPictureEffect = function (effect, value) {
   if (effect === 'chrome') {
-    picturePreview.style.filter = 'grayscale(1)';
+    picturePreview.style.filter = 'grayscale(' + value + ')';
   } else if (effect === 'sepia') {
-    picturePreview.style.filter = 'sepia(1)';
+    picturePreview.style.filter = 'sepia(' + value + ')';
   } else if (effect === 'marvin') {
-    picturePreview.style.filter = 'invert(100%)';
+    picturePreview.style.filter = 'invert(' + value + '%)';
   } else if (effect === 'phobos') {
-    picturePreview.style.filter = 'blur(3px)';
+    picturePreview.style.filter = 'blur(' + value + 'px)';
   } else if (effect === 'heat') {
-    picturePreview.style.filter = 'brightness(3)';
+    picturePreview.style.filter = 'brightness(' + value + ')';
   } else {
     picturePreview.style = null;
   }
@@ -198,8 +219,16 @@ var setPIctureEffect = function (effect) {
 effectItem.forEach(function (picture) {
   picture.addEventListener('click', function (evt) {
     evt.preventDefault();
-    setPIctureEffect(picture.firstElementChild.value);
+    var effectName = picture.firstElementChild.value;
+    setPictureEffect(effectName, maxEffectValueArray[effectName]);
+    currentEffectName = effectName;
   });
+});
+
+effectLevelPin.addEventListener('mouseup', function (evt) {
+  evt.preventDefault();
+  var newEffectValue = getValueFromPercent(maxEffectValueArray[currentEffectName], effrctLevelValue.value);
+  setPictureEffect(currentEffectName, newEffectValue);
 });
 
 var showFormPicture = function () {
