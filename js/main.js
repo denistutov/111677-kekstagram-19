@@ -178,8 +178,8 @@ var cancelUploadButton = uploadPicture.querySelector('#upload-cancel');
 var picturePreview = uploadPicture.querySelector('.img-upload__preview');
 var effectItem = uploadPicture.querySelectorAll('.effects__item');
 var effectLevelBar = uploadPicture.querySelector('.img-upload__effect-level');
-var effrctLevelValue = uploadPicture.querySelector('.effect-level__value');
 var effectLevelPin = uploadPicture.querySelector('.effect-level__pin');
+var effectLevelLine = document.querySelector('.effect-level__line');
 
 var currentEffectName = '';
 var effectValuesArray = {
@@ -208,6 +208,19 @@ var effectValuesArray = {
 var getValueFromPercent = function (maxValue, minValue, percent) {
   return percent * ((maxValue - minValue) / 100) + minValue;
 };
+
+var getPercentFromValues = function (maxValue, minValue, value) {
+  return Math.round((value - minValue)  * 100 / (maxValue - minValue));
+};
+
+var getPercentEffectIntensity = function () {
+  var currentPinPosition = effectLevelPin.getBoundingClientRect().left + effectLevelPin.getBoundingClientRect().width / 2;
+  var left = effectLevelLine.getBoundingClientRect().left;
+  var right = effectLevelLine.getBoundingClientRect().right;
+
+  return getPercentFromValues(right, left,  currentPinPosition);
+};
+
 
 var setPictureEffect = function (effect, value) {
   if (effect === 'chrome') {
@@ -247,7 +260,7 @@ effectLevelPin.addEventListener('mouseup', function (evt) {
   evt.preventDefault();
   var newMaxEffectValue = effectValuesArray[currentEffectName].max;
   var newMinEffectValue = effectValuesArray[currentEffectName].min;
-  var currentPercent = effrctLevelValue.value;
+  var currentPercent = getPercentEffectIntensity();
   var newEffectValue = getValueFromPercent(newMaxEffectValue, newMinEffectValue, currentPercent);
   setPictureEffect(currentEffectName, newEffectValue);
 });
