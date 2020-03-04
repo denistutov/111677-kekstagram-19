@@ -103,8 +103,10 @@ var renderPicture = function (picture) {
 
 var insertPictures = function (array, container) {
   var pictureFragment = document.createDocumentFragment();
+  var pictureImage = pictureTemplate.querySelector('.picture__img');
 
   for (var i = 0; i < array.length; i++) {
+	pictureImage.setAttribute('id', i);
     pictureFragment.appendChild(renderPicture(array[i]));
   }
 
@@ -176,7 +178,12 @@ bigPictureCloseButton.addEventListener('click', function (evt) {
   closeBigPicture();
 });
 
-renderBigPicture(picturesArray[0]);
+picturesContainer.addEventListener('click', function (evt) {
+  var target = evt.target;
+  if (target.classList.value === "picture__img") {  
+	renderBigPicture(picturesArray[target.id]);
+  }
+});
 
 // Личный проект: доверяй, но проверяй (часть 1)
 
@@ -260,7 +267,7 @@ var setPictureEffect = function (effect, value) {
   } else if (effect === 'heat') {
     picturePreview.style.filter = 'brightness(' + value + ')';
   } else {
-    picturePreview.style = '';
+    picturePreview.style.filter = '';
   }
 };
 
@@ -320,9 +327,11 @@ inputPicture.addEventListener('change', function () {
 });
 
 scaleControlValue.value = DEFAULT_SCALE;
+scaleControlValue.setAttribute('value', DEFAULT_SCALE);
 var currentScaleValue = scaleControlValue.value.slice(0, -1);
 
 var scalePicture = function (value) {
+  scaleControlValue.setAttribute('value', value + '%');
   scaleControlValue.value = value + '%';
   picturePreview.style.transform = 'scale(' + value * 0.01 + ')';
 };
