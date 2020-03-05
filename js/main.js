@@ -176,7 +176,9 @@ bigPictureCloseButton.addEventListener('click', function (evt) {
   closeBigPicture();
 });
 
-renderBigPicture(picturesArray[0]);
+picturesContainer.addEventListener('click', function (evt) {
+  var picture = evt.target;
+});
 
 // Личный проект: доверяй, но проверяй (часть 1)
 
