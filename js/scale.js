@@ -8,10 +8,7 @@
   var scaleControlBigger = uploadPicture.querySelector('.scale__control--bigger');
   var scaleControlValue = uploadPicture.querySelector('.scale__control--value');
 
-  scaleControlValue.value = window.constants.DEFAULT_SCALE;
-  scaleControlValue.setAttribute('value', window.constants.DEFAULT_SCALE);
-
-  var currentScaleValue = scaleControlValue.value.slice(0, -1);
+  var currentScaleValue = window.constants.DEFAULT_SCALE;;
 
   var scalePicture = function (value) {
     scaleControlValue.setAttribute('value', value + '%');
@@ -21,18 +18,23 @@
 
   scaleControlSmaller.addEventListener('click', function (evt) {
     evt.preventDefault();
-    if (currentScaleValue > window.constants.MIN_SCALE && currentScaleValue <= window.constants.MAX_SCALE) {
-      currentScaleValue -= window.constants.STEP_SCALE;
-      scalePicture(currentScaleValue);
+    if (window.scale.currentScaleValue > window.constants.MIN_SCALE && currentScaleValue <= window.constants.MAX_SCALE) {
+      window.scale.currentScaleValue -= window.constants.STEP_SCALE;
+      scalePicture(window.scale.currentScaleValue);
     }
   });
 
   scaleControlBigger.addEventListener('click', function (evt) {
     evt.preventDefault();
-    if (currentScaleValue >= window.constants.MIN_SCALE && currentScaleValue < window.constants.MAX_SCALE) {
-      currentScaleValue += window.constants.STEP_SCALE;
-      scalePicture(currentScaleValue);
+    if (window.scale.currentScaleValue >= window.constants.MIN_SCALE && window.scale.currentScaleValue < window.constants.MAX_SCALE) {
+      window.scale.currentScaleValue += window.constants.STEP_SCALE;
+      scalePicture(window.scale.currentScaleValue);
     }
   });
+  
+window.scale = {
+	scalePicture: scalePicture,
+	currentScaleValue: currentScaleValue
+};
 
 })();

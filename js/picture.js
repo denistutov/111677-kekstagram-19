@@ -12,6 +12,8 @@
   var effectLevelBar = uploadPicture.querySelector('.img-upload__effect-level');
   var effectLevelPin = uploadPicture.querySelector('.effect-level__pin');
   var effectLevelLine = uploadPicture.querySelector('.effect-level__line');
+  
+  var scaleControlValue = uploadPicture.querySelector('.scale__control--value');
 
   var currentEffectName = '';
   var effectValuesArray = {
@@ -45,9 +47,13 @@
   };
 
   var closeFormPicture = function () {
-    formPicture.classList.add('hidden');
     inputPicture.value = '';
     window.form.hashTagsText.value = '';
+	picturePreview.style = '';
+	scaleControlValue.value = window.constants.DEFAULT_SCALE + ' %';
+	scaleControlValue.setAttribute('value', window.constants.DEFAULT_SCALE + ' %');
+	window.scale.currentScaleValue = window.constants.DEFAULT_SCALE;
+    formPicture.classList.add('hidden');
   };
 
   cancelUploadButton.addEventListener('click', function (evt) {

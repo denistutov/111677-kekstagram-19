@@ -4,7 +4,7 @@
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
   var PICTURE_COUNT = 25;
-  var DEFAULT_SCALE = '100%';
+  var DEFAULT_SCALE = 100;
   var MIN_SCALE = 25;
   var MAX_SCALE = 100;
   var STEP_SCALE = 25;
