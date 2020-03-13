@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PICTURE_COUNT = 25;
+
   var messagesArray = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
@@ -56,12 +58,11 @@
     return comments;
   };
 
-  var picturesArray = createPicturesArray(window.constants.PICTURE_COUNT);
+  var picturesArray = createPicturesArray(PICTURE_COUNT);
 
   window.data = {
     messagesArray: messagesArray,
     namesArray: namesArray,
     picturesArray: picturesArray
   };
-
 })();

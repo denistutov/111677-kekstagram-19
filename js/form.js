@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var MAX_HASHTAG_COUNT = 5;
+  var MAX_HASHTAG_LENGTH = 20;
+  var MAX_COMMENTS_SYMBOLS = 140
+
   var uploadPicture = document.querySelector('.img-upload');
   var hashTagsText = uploadPicture.querySelector('.text__hashtags');
   var commentsText = uploadPicture.querySelector('.text__description');
@@ -13,8 +17,8 @@
       return 'Хэштэг не может быть пустым';
     } else if (hashtag.match(/#[a-zA-Zа-яА-Я0-9]*/)[0] !== hashtag) {
       return 'Хэштэг должен содержать только буквы и числа';
-    } else if (hashtag.length > window.constants.MAX_HASHTAG_LENGTH) {
-      return 'Максимальная длина хэштэга: ' + window.constants.MAX_HASHTAG_LENGTH + ' (' + hashtag + ')';
+    } else if (hashtag.length > MAX_HASHTAG_LENGTH) {
+      return 'Максимальная длина хэштэга: ' + MAX_HASHTAG_LENGTH + ' (' + hashtag + ')';
     }
 
     return '';
@@ -41,8 +45,8 @@
       uniqHashTags.push(upperHashTag);
     }
 
-    if (uniqHashTags.length > window.constants.MAX_HASHTAG_COUNT) {
-      return 'Максимальное количество хэштэгов: ' + window.constants.MAX_HASHTAG_COUNT;
+    if (uniqHashTags.length > MAX_HASHTAG_COUNT) {
+      return 'Максимальное количество хэштэгов: ' + MAX_HASHTAG_COUNT;
     }
 
     return '';
