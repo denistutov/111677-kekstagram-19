@@ -18,7 +18,7 @@
     bigPictureCommentsLoader.classList.add('hidden');
     window.utils.body.classList.add('modal-open');
 
-    window.addEventListener('keydown', function(evt) {
+    window.addEventListener('keydown', function (evt) {
       if (evt.key === window.utils.ESC_KEY) {
         closeBigPicture();
       }

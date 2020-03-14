@@ -46,7 +46,7 @@
 
   var clearGallery = function () {
     var pictureList = picturesContainer.querySelectorAll('.picture');
-    for(var i = 0; i < pictureList.length; i++) {
+    for (var i = 0; i < pictureList.length; i++) {
       picturesContainer.removeChild(pictureList[i]);
     }
   };

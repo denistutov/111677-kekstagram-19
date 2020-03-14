@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var DEFAULT_SCALE = 100;
   var MIN_SCALE = 25;
   var MAX_SCALE = 100;
   var STEP_SCALE = 25;
@@ -12,7 +11,7 @@
   var scaleControlBigger = uploadPicture.querySelector('.scale__control--bigger');
   var scaleControlValue = uploadPicture.querySelector('.scale__control--value');
 
-  var currentScaleValue = DEFAULT_SCALE;
+  var currentScaleValue = window.utils.DEFAULT_SCALE;
   scaleControlValue.setAttribute('value', currentScaleValue + '%');
 
   var scalePicture = function (value) {
@@ -37,9 +36,9 @@
     }
   });
 
-window.scale = {
-	scalePicture: scalePicture,
-	currentScaleValue: currentScaleValue
-};
+  window.scale = {
+    scalePicture: scalePicture,
+    currentScaleValue: currentScaleValue
+  };
 
 })();

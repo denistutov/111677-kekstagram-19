@@ -4,6 +4,7 @@
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
   var DEBOUNCE_INTERVAL = 500;
+  var DEFAULT_SCALE = 100;
   var body = document.querySelector('body');
 
   var getRandomNumber = function (min, max) {
@@ -51,6 +52,15 @@
     }
   };
 
+  var getCoords = function (elem) {
+    var box = elem.getBoundingClientRect();
+
+    return {
+      right: box.right,
+      left: box.left
+    };
+  };
+
   var debounce = function (func, wait) {
     wait = wait || DEBOUNCE_INTERVAL;
     var timeout;
@@ -65,18 +75,20 @@
       timeout = setTimeout(later, wait);
     }
     return wrapper;
-  }
+  };
 
   window.utils = {
     body: body,
     ESC_KEY: ESC_KEY,
     ENTER_KEY: ENTER_KEY,
+    DEFAULT_SCALE: DEFAULT_SCALE,
     onFormEscPress: onFormEscPress,
     getRandomNumber: getRandomNumber,
     getValueFromPercent: getValueFromPercent,
     getPercentFromValues: getPercentFromValues,
     generateArrayRandomNumber: generateArrayRandomNumber,
     getRandomArrayValue: getRandomArrayValue,
+    getCoords: getCoords,
     debounce: debounce
   };
 })();

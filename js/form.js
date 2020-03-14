@@ -3,14 +3,14 @@
 (function () {
   var MAX_HASHTAG_COUNT = 5;
   var MAX_HASHTAG_LENGTH = 20;
-  var MAX_COMMENTS_SYMBOLS = 140
+  var MAX_COMMENTS_SYMBOLS = 140;
 
   var uploadPicture = document.querySelector('.img-upload');
   var hashTagsText = uploadPicture.querySelector('.text__hashtags');
   var commentsText = uploadPicture.querySelector('.text__description');
   var formUploadImage = uploadPicture.querySelector('.img-upload__form');
 
-  function getHashTagValidityMessage(hashtag) {
+  var getHashTagValidityMessage = function (hashtag) {
     if (hashtag.slice(0, 1) !== '#') {
       return 'Хэштэг должен начинаться с символа #';
     } else if (hashtag.length === 1) {
@@ -22,9 +22,9 @@
     }
 
     return '';
-  }
+  };
 
-  function checkHashTags(hashTagStr) {
+  var checkHashTags = function (hashTagStr) {
     if (hashTagStr.length === 0) {
       return '';
     }
@@ -50,14 +50,30 @@
     }
 
     return '';
-  }
+  };
 
-  function onTextHashTagsInput() {
+  var checkComments = function () {
+    if (commentsText.textLength > MAX_COMMENTS_SYMBOLS) {
+      return 'Максимальная длинна комментария должна быть: ' + MAX_COMMENTS_SYMBOLS;
+    }
+
+    return '';
+  };
+
+  var onTextHashTagsInput = function () {
     hashTagsText.setCustomValidity(checkHashTags(hashTagsText.value));
     formUploadImage.reportValidity(hashTagsText);
-  }
+  };
+
+  var onTextCommentInput = function () {
+    commentsText.setCustomValidity(checkComments(commentsText.textContent));
+    commentsText.reportValidity(commentsText);
+  };
+
+  // Переместить в функцию открытия формы. Добавить удаление обработчика в функцию закрытия.
 
   hashTagsText.addEventListener('input', onTextHashTagsInput);
+  commentsText.addEventListener('input', onTextCommentInput);
 
   window.form = {
     hashTagsText: hashTagsText,
