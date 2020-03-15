@@ -70,13 +70,10 @@
     commentsText.reportValidity(commentsText);
   };
 
-  // Переместить в функцию открытия формы. Добавить удаление обработчика в функцию закрытия.
-
-  hashTagsText.addEventListener('input', onTextHashTagsInput);
-  commentsText.addEventListener('input', onTextCommentInput);
-
   window.form = {
     hashTagsText: hashTagsText,
-    commentsText: commentsText
+    commentsText: commentsText,
+    onTextHashTagsInput: onTextHashTagsInput,
+    onTextCommentInput: onTextCommentInput
   };
 })();

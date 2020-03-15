@@ -12,7 +12,6 @@
   var scaleControlValue = uploadPicture.querySelector('.scale__control--value');
 
   var currentScaleValue = window.utils.DEFAULT_SCALE;
-  scaleControlValue.setAttribute('value', currentScaleValue + '%');
 
   var scalePicture = function (value) {
     scaleControlValue.setAttribute('value', value + '%');
@@ -40,5 +39,4 @@
     scalePicture: scalePicture,
     currentScaleValue: currentScaleValue
   };
-
 })();

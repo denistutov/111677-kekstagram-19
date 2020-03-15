@@ -28,7 +28,7 @@
     for (var i = 0; i < count; i++) {
       pictures[i] = {
         url: 'photos/' + pictureUrl[i] + '.jpg',
-        description: 'Тут должно быть описание', // Но не понятно откуда его брать
+        description: 'Тут должно быть описание',
         likes: window.utils.getRandomNumber(15, 200),
         comments: createCommentsArray(window.utils.getRandomNumber(1, 10))
       };

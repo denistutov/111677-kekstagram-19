@@ -15,6 +15,10 @@
     return array[getRandomNumber(0, array.length - 1)];
   };
 
+  var getPercentFromLengh = function (number, lengh) {
+    return (number / lengh) * 100;
+  };
+
   var getValueFromPercent = function (maxValue, minValue, percent) {
     return percent * ((maxValue - minValue) / 100) + minValue;
   };
@@ -84,6 +88,7 @@
     DEFAULT_SCALE: DEFAULT_SCALE,
     onFormEscPress: onFormEscPress,
     getRandomNumber: getRandomNumber,
+    getPercentFromLengh: getPercentFromLengh,
     getValueFromPercent: getValueFromPercent,
     getPercentFromValues: getPercentFromValues,
     generateArrayRandomNumber: generateArrayRandomNumber,
