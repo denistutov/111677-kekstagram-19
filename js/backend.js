@@ -2,7 +2,7 @@
 
 (function () {
   var TIMEOUT = 10000;
-  var SERVER_URL = 'https://js.dump.academy/kekstagram/data';
+  var SERVER_URL = 'https://js.dump.academy/kekstagram/';
 
   var initXHR = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -50,7 +50,7 @@
   window.backend = {
     load: function (onLoad, onError) {
       var xhr = initXHR(onLoad, onError);
-      xhr.open('GET', SERVER_URL);
+      xhr.open('GET', SERVER_URL + 'data');
       xhr.send();
     },
     save: function (data, onLoad, onError) {

@@ -17,16 +17,7 @@
   };
 
   var onError = function (errorMessage) {
-    var errorViewer = document.createElement('div');
-    errorViewer.style = 'z-index: 100; margin: 0 auto; padding: 15px 0; width: auto; height: 50px; text-align: center;' +
-      ' background-color: rgba(255, 231, 82, 0.3); color: #ffe753';
-    errorViewer.style.position = 'absolute';
-    errorViewer.style.top = 0;
-    errorViewer.style.left = 0;
-    errorViewer.style.right = 0;
-    errorViewer.style.fontSize = '30px';
-    errorViewer.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', errorViewer);
+    window.utils.renderInfoMessage('#error', '.error', errorMessage, 'Закрыть');
   };
 
   // Загрузка данных по сети

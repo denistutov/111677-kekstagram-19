@@ -54,7 +54,7 @@
     bigPictureImg.src = picture.url;
     bigPictureImg.alt = picture.description;
     bigPictureLikesCount.textContent = picture.likes;
-    bigPictureCommentsCount.textContent = 10;
+    bigPictureCommentsCount.textContent = picture.comments.length;
     bigPictureDescription.textContent = picture.description;
     bigPictureSocialComments.innerHTML = '';
     bigPictureSocialComments.appendChild(insertSocialComments(picture.comments));
