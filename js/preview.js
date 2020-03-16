@@ -5,9 +5,9 @@
   var bigPictureImg = bigPicture.querySelector('.big-picture__img img');
   var bigPictureLikesCount = bigPicture.querySelector('.likes-count');
   var bigPictureCommentsCount = bigPicture.querySelector('.comments-count');
-  var bigPictureSocialCommentsCount = bigPicture.querySelector('.social__comment-count');
-  var bigPictureCommentsLoader = bigPicture.querySelector('.comments-loader');
+  var bigPictureCommentsCurrent = bigPicture.querySelector('.comments-current');
   var bigPictureSocialComments = bigPicture.querySelector('.social__comments');
+  var bigPictureSocialCommentsCount = bigPicture.querySelector('.social__comment-count');
   var bigPictureDescription = bigPicture.querySelector('.social__caption');
   var bigPictureCloseButton = bigPicture.querySelector('.big-picture__cancel');
   var bigPictureLoaderButton = bigPicture.querySelector('.social__comments-loader');
@@ -21,8 +21,8 @@
 
   var showBigPicture = function () {
     bigPicture.classList.remove('hidden');
-    bigPictureSocialCommentsCount.classList.add('hidden');
-    bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureSocialCommentsCount.classList.remove('hidden');
+    bigPictureLoaderButton.classList.remove('hidden');
     window.utils.body.classList.add('modal-open');
 
     window.addEventListener('keydown', function (evt) {
@@ -65,7 +65,14 @@
       bigPictureLoaderButton.classList.add('hidden');
     }
 
+    setSocialCommentsCount();
+
     return comments;
+  };
+
+  var setSocialCommentsCount = function () {
+    var totalCommentsShow = socialCommentsOriginal.length - socialCommentsCopy.length;
+    bigPictureCommentsCurrent.innerHTML = totalCommentsShow;
   };
 
   var insertSocialComments = function (commentsArray) {
@@ -86,13 +93,13 @@
     bigPictureDescription.textContent = picture.description;
     bigPictureSocialComments.innerHTML = '';
 
+
     socialCommentsOriginal = picture.comments;
     socialCommentsCopy = socialCommentsOriginal.slice();
     socialCommentsBlock = getBlockSocialComments(socialCommentsCopy);
     bigPictureSocialComments.appendChild(insertSocialComments(socialCommentsBlock));
 
     showBigPicture();
-    bigPictureLoaderButton.classList.remove('hidden');
     bigPictureLoaderButton.addEventListener('click', onBigPictureLoaderButtonMouseClick);
     bigPictureCloseButton.addEventListener('click', onBigPictureCloseButtonMouseClick);
   };
