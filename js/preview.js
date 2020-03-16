@@ -61,7 +61,7 @@
       comments.push(array.shift());
     }
 
-    if (array.length === 0 || array.length < COMMENTS_COUNT) {
+    if (array.length === 0) {
       bigPictureLoaderButton.classList.add('hidden');
     }
 
