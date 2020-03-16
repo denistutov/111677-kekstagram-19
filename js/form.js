@@ -3,7 +3,6 @@
 (function () {
   var MAX_HASHTAG_COUNT = 5;
   var MAX_HASHTAG_LENGTH = 20;
-  var MAX_COMMENTS_SYMBOLS = 140;
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   var uploadPicture = document.querySelector('.img-upload');
@@ -38,7 +37,7 @@
       reader.readAsDataURL(imageFile);
     } else {
       var errorMessage = 'Фотография не правильного формата';
-      window.utils.renderInfoMessage('#error', '.error', errorMessage);
+      window.info.renderInfoMessage('#error', '.error', errorMessage);
     }
   };
 
@@ -84,28 +83,14 @@
     return '';
   };
 
-  var checkComments = function () {
-    if (commentsText.textLength > MAX_COMMENTS_SYMBOLS) {
-      return 'Максимальная длинна комментария должна быть: ' + MAX_COMMENTS_SYMBOLS;
-    }
-
-    return '';
-  };
-
   var onTextHashTagsInput = function () {
     hashTagsText.setCustomValidity(checkHashTags(hashTagsText.value));
     formUploadImage.reportValidity(hashTagsText);
   };
 
-  var onTextCommentInput = function () {
-    commentsText.setCustomValidity(checkComments(commentsText.textContent));
-    commentsText.reportValidity(commentsText);
-  };
-
   window.form = {
     hashTagsText: hashTagsText,
     commentsText: commentsText,
-    onTextHashTagsInput: onTextHashTagsInput,
-    onTextCommentInput: onTextCommentInput
+    onTextHashTagsInput: onTextHashTagsInput
   };
 })();

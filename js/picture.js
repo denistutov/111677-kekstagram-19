@@ -45,12 +45,15 @@
     window.utils.body.classList.add('modal-open');
     formPicture.classList.remove('hidden');
     effectLevelBar.classList.add('hidden');
+
     scaleControlValue.value = window.utils.DEFAULT_SCALE + ' %';
     scaleControlValue.setAttribute('value', window.utils.DEFAULT_SCALE + ' %');
     window.slider.setDefaultPinValues();
+
     document.addEventListener('keydown', window.utils.onFormEscPress);
     window.form.hashTagsText.addEventListener('input', window.form.onTextHashTagsInput);
-    window.form.commentsText.addEventListener('input', window.form.onTextCommentInput);
+    effectItemList.addEventListener('click', onEffectItemListMouseClick);
+    editingForm.addEventListener('submit', sendData);
   };
 
   // Закрытие окна редактирования изображения
@@ -59,9 +62,13 @@
     window.form.hashTagsText.value = '';
     window.scale.currentScaleValue = window.utils.DEFAULT_SCALE;
     picturePreview.removeAttribute('style');
-    formPicture.classList.add('hidden');
+
+    document.removeEventListener('keydown', window.utils.onFormEscPress);
     window.form.hashTagsText.removeEventListener('input', window.form.onTextHashTagsInput);
-    window.form.commentsText.removeEventListener('input', window.form.onTextCommentInput);
+    effectItemList.removeEventListener('click', onEffectItemListMouseClick);
+    editingForm.removeEventListener('submit', sendData);
+
+    formPicture.classList.add('hidden');
   };
 
   cancelUploadButton.addEventListener('click', function (evt) {
@@ -110,7 +117,22 @@
     getPictureEffect(currentEffectName, newEffectValue);
   };
 
-  effectItemList.addEventListener('click', function (evt) {
+  function sendData(evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(editingForm), onSuccess, onError);
+  }
+
+  function onSuccess() {
+    closeFormPicture();
+    window.info.renderInfoMessage('#success', '.success');
+  }
+
+  function onError(errorMessage) {
+    closeFormPicture();
+    window.info.renderInfoMessage('#error', '.error', errorMessage);
+  }
+
+  var onEffectItemListMouseClick = function (evt) {
     var target = evt.target;
     if (target.parentNode.className === 'effects__label') {
       var effectName = target.className
@@ -121,24 +143,7 @@
       window.slider.setDefaultPinValues();
       setEffectFilter(effectName);
     }
-  });
-
-  function sendData(evt) {
-    evt.preventDefault();
-    window.backend.save(new FormData(editingForm), onSuccess, onError);
-  }
-
-  function onSuccess() {
-    closeFormPicture();
-    window.utils.renderInfoMessage('#success', '.success');
-  }
-
-  function onError(errorMessage) {
-    closeFormPicture();
-    window.utils.renderInfoMessage('#error', '.error', errorMessage);
-  }
-
-  editingForm.addEventListener('submit', sendData);
+  };
 
   window.picture = {
     showFormPicture: showFormPicture,

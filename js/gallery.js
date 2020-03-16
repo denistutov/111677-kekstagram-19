@@ -17,7 +17,7 @@
   };
 
   var onError = function (errorMessage) {
-    window.utils.renderInfoMessage('#error', '.error', errorMessage, 'Закрыть');
+    window.info.renderInfoMessage('#error', '.error', errorMessage, 'Закрыть');
   };
 
   // Загрузка данных по сети

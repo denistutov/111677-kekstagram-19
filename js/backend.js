@@ -2,7 +2,8 @@
 
 (function () {
   var TIMEOUT = 10000;
-  var SERVER_URL = 'https://js.dump.academy/kekstagram/';
+  var SERVER_URL_UPLOAD = 'https://js.dump.academy/kekstagram/';
+  var SERVER_URL_DOWNLOAD = 'https://js.dump.academy/kekstagram/data/';
 
   var initXHR = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -36,7 +37,7 @@
           status = 'Пользователь не авторизован';
           break;
         case 404:
-          status = 'Ничего не найдено';
+          status = 'Ошибка загрузки данных';
           break;
 
         default:
@@ -50,12 +51,12 @@
   window.backend = {
     load: function (onLoad, onError) {
       var xhr = initXHR(onLoad, onError);
-      xhr.open('GET', SERVER_URL + 'data');
+      xhr.open('GET', SERVER_URL_DOWNLOAD);
       xhr.send();
     },
     save: function (data, onLoad, onError) {
       var xhr = initXHR(onLoad, onError);
-      xhr.open('POST', SERVER_URL);
+      xhr.open('POST', SERVER_URL_UPLOAD);
       xhr.send(data);
     }
   };
