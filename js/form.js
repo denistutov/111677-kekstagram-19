@@ -86,6 +86,12 @@
   var onTextHashTagsInput = function () {
     hashTagsText.setCustomValidity(checkHashTags(hashTagsText.value));
     formUploadImage.reportValidity(hashTagsText);
+
+    if (checkHashTags(hashTagsText.value) !== '') {
+      hashTagsText.style.borderColor = 'red';
+    } else {
+      hashTagsText.removeAttribute('style');
+    }
   };
 
   window.form = {
