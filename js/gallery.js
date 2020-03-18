@@ -71,7 +71,8 @@
         case 'filter-random':
           sortPictures = originalPictures.slice().sort(function () {
             return Math.random() - 0.5;
-          }).slice(0, MAX_RANDOM_PICTURES);
+          });
+          sortPictures.length = MAX_RANDOM_PICTURES;
           break;
         case 'filter-discussed':
           sortPictures = originalPictures.slice().sort(function (first, second) {

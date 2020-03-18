@@ -3,7 +3,7 @@
 (function () {
   var TIMEOUT = 10000;
 
-  var initXHR = function (onLoad, onError, method , data, url) {
+  var initXHR = function (onLoad, onError, method, data, url) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
