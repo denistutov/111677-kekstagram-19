@@ -13,6 +13,7 @@
   var onSuccess = function (pictures) {
     picturesFilterForm.classList.remove('img-filters--inactive');
     originalPictures = pictures;
+    sortPictures = pictures;
     setPicturesOrder();
     renderGallery(pictures);
   };
@@ -24,23 +25,23 @@
   // Загрузка данных по сети
   window.backend.open(onSuccess, onError, 'GET', '', SERVER_URL_UPLOAD);
 
+  var onPicturesListClick = function (evt) {
+    var target = evt.target;
+    if (target.classList.contains('picture__img')) {
+      window.preview.renderBigPicture(sortPictures[target.id]);
+    }
+  };
+
+  var onPicturesListKeyDown = function (evt) {
+    var target = evt.target.firstElementChild;
+    if (evt.key === window.utils.ENTER_KEY) {
+      window.preview.renderBigPicture(sortPictures[target.id]);
+    }
+  };
+
   var renderGallery = function (pictures) {
     clearGallery();
     picturesContainer.appendChild(window.render.insertPictures(pictures, picturesContainer));
-
-    var onPicturesListClick = function (evt) {
-      var target = evt.target;
-      if (target.classList.contains('picture__img')) {
-        window.preview.renderBigPicture(pictures[target.id]);
-      }
-    };
-
-    var onPicturesListKeyDown = function (evt) {
-      var target = evt.target.firstElementChild;
-      if (evt.key === window.utils.ENTER_KEY) {
-        window.preview.renderBigPicture(pictures[target.id]);
-      }
-    };
 
     picturesContainer.addEventListener('keydown', onPicturesListKeyDown);
     picturesContainer.addEventListener('click', onPicturesListClick);
@@ -83,6 +84,9 @@
           sortPictures = originalPictures;
           break;
       }
+
+      picturesContainer.removeEventListener('keydown', onPicturesListKeyDown);
+      picturesContainer.removeEventListener('click', onPicturesListClick);
       changeActiveFilterButtons(target);
       renderGallery(sortPictures);
     }));
