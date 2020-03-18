@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var SERVER_URL_UPLOAD = 'https://js.dump.academy/kekstagram/data';
   var MAX_RANDOM_PICTURES = 10;
 
   var picturesContainer = document.querySelector('.pictures');
@@ -17,11 +18,11 @@
   };
 
   var onError = function (errorMessage) {
-    window.info.renderInfoMessage('#error', '.error', errorMessage, 'Закрыть');
+    window.info.renderMessageForm('#error', '.error', errorMessage, 'Закрыть');
   };
 
   // Загрузка данных по сети
-  window.backend.load(onSuccess, onError);
+  window.backend.open(onSuccess, onError, 'GET', '', SERVER_URL_UPLOAD);
 
   var renderGallery = function (pictures) {
     clearGallery();
@@ -29,7 +30,7 @@
 
     var onPicturesListClick = function (evt) {
       var target = evt.target;
-      if (target.parentNode.className === 'picture') {
+      if (target.classList.contains('picture__img')) {
         window.preview.renderBigPicture(pictures[target.id]);
       }
     };
@@ -47,9 +48,10 @@
 
   var clearGallery = function () {
     var pictureList = picturesContainer.querySelectorAll('.picture');
-    for (var i = 0; i < pictureList.length; i++) {
-      picturesContainer.removeChild(pictureList[i]);
-    }
+
+    pictureList.forEach(function (element) {
+      picturesContainer.removeChild(element);
+    });
   };
 
   var changeActiveFilterButtons = function (activeButton) {

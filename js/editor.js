@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var SERVER_URL_UPLOAD = 'https://js.dump.academy/kekstagram/';
 
   var uploadPicture = document.querySelector('.img-upload');
 
@@ -53,20 +54,21 @@
     document.addEventListener('keydown', window.utils.onFormEscPress);
     window.form.hashTagsText.addEventListener('input', window.form.onTextHashTagsInput);
     effectItemList.addEventListener('click', onEffectItemListMouseClick);
-    editingForm.addEventListener('submit', sendData);
+    editingForm.addEventListener('submit', onDataSend);
   };
 
   // Закрытие окна редактирования изображения
   var closeFormPicture = function () {
     inputPicture.value = '';
     window.form.hashTagsText.value = '';
-    window.scale.currentScaleValue = window.utils.DEFAULT_SCALE;
+    window.form.commentsText.value = '';
+    window.resize.currentScaleValue = window.utils.DEFAULT_SCALE;
     picturePreview.removeAttribute('style');
 
     document.removeEventListener('keydown', window.utils.onFormEscPress);
     window.form.hashTagsText.removeEventListener('input', window.form.onTextHashTagsInput);
     effectItemList.removeEventListener('click', onEffectItemListMouseClick);
-    editingForm.removeEventListener('submit', sendData);
+    editingForm.removeEventListener('submit', onDataSend);
 
     formPicture.classList.add('hidden');
   };
@@ -117,19 +119,19 @@
     getPictureEffect(currentEffectName, newEffectValue);
   };
 
-  function sendData(evt) {
+  function onDataSend(evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(editingForm), onSuccess, onError);
+    window.backend.open(onSuccess, onError, 'POST', new FormData(editingForm), SERVER_URL_UPLOAD);
   }
 
   function onSuccess() {
     closeFormPicture();
-    window.info.renderInfoMessage('#success', '.success');
+    window.info.renderMessageForm('#success', '.success');
   }
 
   function onError(errorMessage) {
     closeFormPicture();
-    window.info.renderInfoMessage('#error', '.error', errorMessage);
+    window.info.renderMessageForm('#error', '.error', errorMessage);
   }
 
   var onEffectItemListMouseClick = function (evt) {
@@ -145,7 +147,7 @@
     }
   };
 
-  window.picture = {
+  window.editor = {
     showFormPicture: showFormPicture,
     closeFormPicture: closeFormPicture,
     changeEffectValue: changeEffectValue

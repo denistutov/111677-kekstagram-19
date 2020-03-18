@@ -10,7 +10,7 @@
     return elementToClone;
   };
 
-  var renderInfoMessage = function (templateElement, innerSelector, message, buttonText) {
+  var renderMessageForm = function (templateElement, innerSelector, message, buttonText) {
     var overlay = window.utils.body;
     var template = getTemplateClone(templateElement, innerSelector);
     var templateMessage = template.cloneNode(true);
@@ -26,20 +26,30 @@
       templateBtn.textContent = buttonText;
     }
 
-    document.addEventListener('keydown', function (evt) {
+    var onRenderMessageFormPressEsc = function (evt) {
       if (evt.key === window.utils.ESC_KEY) {
-        overlay.removeChild(templateMessage);
+        window.utils.body.removeChild(templateMessage);
+        closeRenderMessage();
       }
-    });
+    };
 
-    templateBtn.addEventListener('click', function () {
+    var onRenderMessageFormClick = function () {
       overlay.removeChild(templateMessage);
+      closeRenderMessage();
+    };
+
+    var closeRenderMessage = function () {
       overlay.removeAttribute('class');
-    });
+      document.removeEventListener('keydown', onRenderMessageFormPressEsc);
+      templateBtn.addEventListener('click', onRenderMessageFormClick);
+    };
+
+    document.addEventListener('keydown', onRenderMessageFormPressEsc);
+    templateBtn.addEventListener('click', onRenderMessageFormClick);
   };
 
   window.info = {
-    renderInfoMessage: renderInfoMessage
+    renderMessageForm: renderMessageForm
   };
 
 })();

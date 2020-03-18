@@ -18,10 +18,10 @@
     var pictureFragment = document.createDocumentFragment();
     var pictureImage = pictureTemplate.querySelector('.picture__img');
 
-    for (var i = 0; i < array.length; i++) {
-      pictureImage.setAttribute('id', i);
-      pictureFragment.appendChild(renderPicture(array[i]));
-    }
+    array.forEach(function (picture, index) {
+      pictureImage.setAttribute('id', index);
+      pictureFragment.appendChild(renderPicture(picture));
+    });
 
     return container.appendChild(pictureFragment);
   };

@@ -2,10 +2,8 @@
 
 (function () {
   var TIMEOUT = 10000;
-  var SERVER_URL_UPLOAD = 'https://js.dump.academy/kekstagram/';
-  var SERVER_URL_DOWNLOAD = 'https://js.dump.academy/kekstagram/data/';
 
-  var initXHR = function (onLoad, onError) {
+  var initXHR = function (onLoad, onError, method , data, url) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -45,20 +43,17 @@
       }
       return status;
     };
-    return xhr;
-  };
 
-  window.backend = {
-    load: function (onLoad, onError) {
-      var xhr = initXHR(onLoad, onError);
-      xhr.open('GET', SERVER_URL_DOWNLOAD);
-      xhr.send();
-    },
-    save: function (data, onLoad, onError) {
-      var xhr = initXHR(onLoad, onError);
-      xhr.open('POST', SERVER_URL_UPLOAD);
+    xhr.open(method, url);
+
+    if (data) {
       xhr.send(data);
+    } else {
+      xhr.send();
     }
   };
 
+  window.backend = {
+    open: initXHR
+  };
 })();

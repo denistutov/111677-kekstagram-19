@@ -27,7 +27,7 @@
     });
 
     if (matches) {
-      window.picture.showFormPicture();
+      window.editor.showFormPicture();
 
       reader = new FileReader();
       reader.addEventListener('load', function () {
@@ -37,7 +37,7 @@
       reader.readAsDataURL(imageFile);
     } else {
       var errorMessage = 'Фотография не правильного формата';
-      window.info.renderInfoMessage('#error', '.error', errorMessage);
+      window.info.renderMessageForm('#error', '.error', errorMessage);
     }
   };
 

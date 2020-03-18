@@ -24,11 +24,9 @@
   };
 
   var onFormEscPress = function (evt) {
-    if (window.form.hashTagsText === document.activeElement || window.form.commentsText === document.activeElement) {
-      return;
-    } else {
+    if (!(window.form.hashTagsText === document.activeElement || window.form.commentsText === document.activeElement)) {
       if (evt.key === window.utils.ESC_KEY) {
-        window.picture.closeFormPicture();
+        window.editor.closeFormPicture();
       }
     }
   };

@@ -21,21 +21,21 @@
 
   scaleControlSmaller.addEventListener('click', function (evt) {
     evt.preventDefault();
-    if (window.scale.currentScaleValue > MIN_SCALE && currentScaleValue <= MAX_SCALE) {
-      window.scale.currentScaleValue -= STEP_SCALE;
-      scalePicture(window.scale.currentScaleValue);
+    if (window.resize.currentScaleValue > MIN_SCALE && currentScaleValue <= MAX_SCALE) {
+      window.resize.currentScaleValue -= STEP_SCALE;
+      scalePicture(window.resize.currentScaleValue);
     }
   });
 
   scaleControlBigger.addEventListener('click', function (evt) {
     evt.preventDefault();
-    if (window.scale.currentScaleValue >= MIN_SCALE && window.scale.currentScaleValue < MAX_SCALE) {
-      window.scale.currentScaleValue += STEP_SCALE;
-      scalePicture(window.scale.currentScaleValue);
+    if (window.resize.currentScaleValue >= MIN_SCALE && window.resize.currentScaleValue < MAX_SCALE) {
+      window.resize.currentScaleValue += STEP_SCALE;
+      scalePicture(window.resize.currentScaleValue);
     }
   });
 
-  window.scale = {
+  window.resize = {
     scalePicture: scalePicture,
     currentScaleValue: currentScaleValue
   };
